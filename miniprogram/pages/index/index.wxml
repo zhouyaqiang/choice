@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}});margin-left:50px"></button>
+    <text wx:if="{{userInfo.nickName}}">欢迎您：{{userInfo.nickName}}</text>
+    <text wx:if="{{!userInfo.nickName}}">请先点击左侧图标授权</text>
+  </view>
+  <!-- 展示选择题 -->
+  <view wx:if="{{userInfo.nickName}}">
+    <view>
+      <view style="margin: 10px">{{choice.title}}</view>
+      <checkbox-group bindchange="checkboxChange" style="margin: 10px 10px 15px 10px">
+        <label class="checkbox" wx:for="{{choice.options}}" wx:key="{{index}}">
+          <checkbox value="{{item}}" checked="{{isChecked}}" />{{item}}
+          <text>\n</text>
+        </label>
+      </checkbox-group>
+    </view>
+    <view style="margin: 8px">
+      <text wx:if="{{isShowCorrectAnswer}}">正确答案为：{{currentCorrectAnswer}}</text>
+    </view>
+    <view style="margin:8px">
+      <button type="primary" ontap="handleUp" style="width:100px; float:left; margin-right:20px">上一题</button>
+      <button type="primary" style="width:100px; float:left; margin-right:20px" ontap="showCorrectAnswer">显示答案</button>
+      <button type="primary" style="width:100px; float:left" ontap="handleNext">下一题</button>
+    </view>
+  </view>
+</view>
